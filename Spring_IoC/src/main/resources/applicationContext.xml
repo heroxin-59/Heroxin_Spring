@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--无参构造实例化Bean-->
+        <bean id="userDao01" class="com.heroxin.dao.impl.UserDaoImpl" scope="prototype"></bean>
+
+    <!--静态工厂实例化Bean-->
+<!--        <bean id="userDao02" class="com.heroxin.factory.StaticFactory"-->
+<!--              factory-method="getUserDao02"></bean>-->
+
+    <!--实例工厂实例化Bean-->
+    <!--因为static不用创建StaticFactory对象可以直接用，而动态方法必须先创建动态工厂对象-->
+<!--        <bean id="factory" class="com.heroxin.factory.DynamicFactory"></bean>-->
+<!--        <bean id="userDao03" factory-bean="factory" -->
+<!--              factory-method="getUserDao03" scope="prototype"></bean>-->
+
+
+    <!--依赖注入-->
+
+     <!--setter方法-->
+    <bean id="userService01" class="com.heroxin.service.impl.UserServiceImpl" scope="prototype">
+        <property name="userDao" ref="userDao01"></property>
+    </bean>
+      <!--有参构造方法-->
+    <bean id="userService02" class="com.heroxin.service.impl.UserServiceImpl" scope="prototype">
+        <constructor-arg name="userDao" ref="userDao01"></constructor-arg>
+    </bean>
+
+</beans>

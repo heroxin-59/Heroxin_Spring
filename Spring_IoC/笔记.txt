@@ -1,0 +1,34 @@
+一·Spring的开发步骤：
+    1.导入坐标；
+    2.创建Bean；
+    3.创建applicationContext.xml配置文件
+    4.在配置文件中配置Bean
+    5.创建applicationContext对象getBean
+
+二·Bean标签基本配置
+    用于配置对象交由Spring来创建
+    默认情况下它调用的是类(全限定名指向的类)中的无参构造函数，如果没有无参构造函数则不能创建成功
+  基本属性：
+    id：Bean实例在Spring容器中的唯一标识
+    class：Bean的全限定名称 (Copy Reference)
+    scope：指对象的作用范围
+        singleton：默认的，单例的。无论有多少个Bean引用它，始终将指向同一个对象。
+            Bean的实例化时机：创建容器，配置文件被加载
+            Bean的生命周期：
+                对象创建：当应用加载，创建容器(applicationContext)时，对象被创建；
+                对象运行：只要容器在，对象一直存活；
+                对象销毁：当应用卸载，销毁容器时，对象就被销毁了。
+        prototype：多例的。每次Spring容器获取Bean时，容器都将创建一个新的Bean实例
+            Bean的实例化时机：调用getBean()方法时
+            Bean的生命周期：
+                对象创建：当使用对象(getBean())时，创建新的对象实例;
+                对象运行：只要对象在使用中就一直存活；
+                对象销毁：当对象长时间不用时，被Jave垃圾回收器回收。
+    Bean实例化的三种方式：
+        无参构造方法
+        工厂静态方法
+        工厂实例方法
+    Bean的依赖注入：
+       是Spring框架核心IOC的具体实现。
+        setter方法
+        有参构造方法

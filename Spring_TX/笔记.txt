@@ -1,0 +1,39 @@
+一· Spring的事务控制
+    声明式事务控制：
+        Spring的声明式事务控制顾名思义就是采用声明的方式来处理事务。这里所说的声明，
+     就是指在配置文件中声明，用Spring配置文件中声明式的处理事务来代替代码式的处理事务。
+    声明式事务处理的作用：
+        1.事务管理不侵入开发的组件，具体来说，业务逻辑就不会意识到正在事务管理当中，事实上也应该如此，
+          因为事务管理是属于系统层面的服务，而不是业务逻辑的一部分，如果想要改变事务管理策划的话，
+          也只需要在定义文件中重新配置即可。
+        2.在不需要事务管理的时候，只要在设定文件上修改一下，即可移去事务管理服务，无需改变代码重新编译，
+          这样维护起来及其便利。
+    Spring声明式事务控制底层就是AOP.
+
+二·基于xml的声明式事务控制
+    声明式事务控制得明确：
+        谁是切面？
+        谁是通知？
+        配置切面？
+
+    引入 aop 与 tx 的命名空间和约束条件
+
+    步骤:
+        1.配置平台事务管理器
+            <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                    <property name="dataSource" ref="dataSource"></property>
+            </bean>
+        2.事务通知的配置
+            <tx:advice id="txAdvice" transaction-manager="transactionManager">
+                    <tx:attributes>
+            <!--             * 全部默认配置-->
+                        <tx:method name="*"/>
+            <!--              该方法的默认配置-->
+                        <tx:method name="transfer*"></tx:method>
+                        <tx:method name="transfer" isolation="DEFAULT" read-only="false"></tx:method>
+                    </tx:attributes>
+            </tx:advice>
+        3.事务AOP的织入配置
+            <aop:config>
+                    <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.heroxin.service.impl.*.*(..))"></aop:advisor>
+            </aop:config>

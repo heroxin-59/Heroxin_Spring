@@ -1,0 +1,39 @@
+一·Spring配置数据源
+    常用的数据源有c3p0，druid
+   手动配置步骤：
+        1.到入坐标；
+        2.创建数据源对象；
+        3.设置基本连接参数；(驱动，url，用户名，密码)
+        4.建立连接，关闭连接。
+
+   Spring可以将创建数据源对象，和Spring_IoC中所学操作一样
+
+   applicationContext.xml 加载 jdbc.properties 配置文件信息获得连接
+        首先引入context的命名空间和约束路径
+        命名空间： xmlns:context="http://www.springframework.org/schema/context"
+        约束路径： http://www.springframework.org/schema/context
+                 http://www.springframework.org/schema/context/spring-context.xsd
+
+二·Spring的注解开发(熟悉 .xml 配置后再使用注解)
+       (在学习JavaWeb时，车车使用一行注解@WebServlet可以代替 web.xml 中的繁琐配置，这里也是类似)
+       Spring是轻代码而重配置的框架，配置比较繁重，影响开发效率，所以注解开发是一种趋势，注解代替xml配置文件
+    可以简化配置，提高开发效率。
+        在使用注解开发时，需要在配置文件中添加组件扫描，作用是指定哪个包及其子包下的Bean需要进行扫描以便识别
+    使用注解配置的类，字段和方法。
+          <context:component-scan base-package="com.heroxin"></context:component-scan>
+
+    (1).原始注解：主要代替Bean的配置
+            @Component: 标注一个普通的Spring Bean类
+            @Controller: 标注一个控制器组件类
+            @Service: 标注一个业务逻辑组件类
+            @Repository: 标注一个DAO组件类
+            ...
+    (2).新注解
+
+三·Spring集成Junit步骤
+    步骤：
+        1.导入Spring集成Junit的坐标；
+        2.使用@Runwith注解替换原来的运行期；
+        3.使用@ContextConfiguration指定配置文件或配置类；
+        4.使用@Autowired注入需要测试的对象；
+        5.创建测试方法进行测试。
